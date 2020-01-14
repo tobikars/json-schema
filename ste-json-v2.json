@@ -1,0 +1,469 @@
+{
+  "definitions": {},
+  "$schema": "",
+  "$id": "http://devportal.scantrust.com/root.json",
+  "type": "object",
+  "title": "ScanTrust STE JSON Schema",
+  "required": [
+    "version",
+    "enabled",
+    "$schema",
+    "access",
+    "tasks"
+  ],
+  "properties": {
+    "version": {
+      "$id": "#/properties/version",
+      "type": "integer",
+      "title": "version of the schema",
+      "default": 0,
+      "examples": [
+        2
+      ]
+    },
+    "enabled": {
+      "$id": "#/properties/enabled",
+      "type": "boolean",
+      "title": "set to disable to not use in the app",
+      "default": false,
+      "examples": [
+        true
+      ]
+    },
+    "$schema": {
+      "$id": "#/properties/$schema",
+      "type": "string",
+      "title": "link to the schema",
+      "default": "",
+      "examples": [
+        "./tasks-v2.json"
+      ],
+      "pattern": "^(.*)$"
+    },
+    "access": {
+      "$id": "#/properties/access",
+      "type": "array",
+      "title": "The Access Schema",
+      "description": "List of teams and which tasks they can access",
+      "default": null,
+      "items": {
+        "$id": "#/properties/access/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "team",
+          "tasks"
+        ],
+        "properties": {
+          "team": {
+            "$id": "#/properties/access/items/properties/team",
+            "type": "string",
+            "title": "The Team Schema",
+            "default": "",
+            "examples": [
+              "team_name1"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "tasks": {
+            "$id": "#/properties/access/items/properties/tasks",
+            "type": "array",
+            "title": "List of Tasks per team",
+            "items": {
+              "$id": "#/properties/access/items/properties/tasks/items",
+              "type": "string",
+              "title": "The Items Schema",
+              "default": "",
+              "examples": [
+                "task-key-1",
+                "task-key-2"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        }
+      }
+    },
+    "tasks": {
+      "$id": "#/properties/tasks",
+      "type": "array",
+      "title": "The Tasks Schema",
+      "description": "List of Tasks which can be performed on this campaign",
+      "default": null,
+      "items": {
+        "$id": "#/properties/tasks/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "key",
+          "name",
+          "comment",
+          "fields",
+          "upload",
+          "result_screen"
+        ],
+        "properties": {
+          "key": {
+            "$id": "#/properties/tasks/items/properties/key",
+            "type": "string",
+            "title": "Task Key",
+            "default": "",
+            "examples": [
+              "aggregate-bottle-to-case"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "name": {
+            "$id": "#/properties/tasks/items/properties/name",
+            "type": "string",
+            "title": "Task Name",
+            "default": "",
+            "examples": [
+              "Aggregate Bottles to Case"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "comment": {
+            "$id": "#/properties/tasks/items/properties/comment",
+            "type": "string",
+            "title": "Task Comment",
+            "default": "",
+            "examples": [
+              "Warehouse labeling and bottling process. Scan order-number, material number, case-label and <packsize> bottles."
+            ],
+            "pattern": "^(.*)$"
+          },
+          "fields": {
+            "$id": "#/properties/tasks/items/properties/fields",
+            "type": "array",
+            "title": "Fields for this task",
+            "description": "List of fields which can be populated for update",
+            "default": null,
+            "items": {
+              "$id": "#/properties/tasks/items/properties/fields/items",
+              "type": "object",
+              "title": "Field",
+              "required": [
+                "key",
+                "label",
+                "input"
+              ],
+              "properties": {
+                "key": {
+                  "$id": "#/properties/tasks/items/properties/fields/items/properties/key",
+                  "type": "string",
+                  "title": "SCM Key or Code Field",
+                  "default": "",
+                  "examples": [
+                    "all_things"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "hidden": {
+                  "$id": "#/properties/tasks/items/properties/fields/items/properties/hidden",
+                  "type": "boolean",
+                  "title": "Show or Hide Field",
+                  "default": false,
+                  "examples": [
+                    false
+                  ]
+                },
+                "label": {
+                  "$id": "#/properties/tasks/items/properties/fields/items/properties/label",
+                  "type": "string",
+                  "title": "Field Label",
+                  "default": "",
+                  "examples": [
+                    "Product"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "input": {
+                  "$id": "#/properties/tasks/items/properties/fields/items/properties/input",
+                  "type": "string",
+                  "title": "Field Input type",
+                  "default": "",
+                  "examples": [
+                    "list"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "value": {
+                  "$id": "#/properties/tasks/items/properties/fields/items/properties/value",
+                  "type": "string",
+                  "title": "Field Value or Variable value",
+                  "default": "",
+                  "examples": [
+                    "@variable.object.name"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "widget": {
+                  "$id": "#/properties/tasks/items/properties/fields/items/properties/widget",
+                  "type": "string",
+                  "title": "Field Widget",
+                  "default": "",
+                  "examples": [
+                    "com.scantrust.ste.widget-name"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "scan": {
+                  "$id": "#/properties/tasks/items/properties/fields/items/properties/scan",
+                  "type": "object",
+                  "title": "Field Scan Settings",
+                  "default": null,
+                  "required": [
+                    "symbologies"
+                  ],
+                  "properties": {
+                    "symbologies": {
+                      "$id": "#/properties/tasks/items/properties/fields/items/properties/scan/properties/symbologies",
+                      "type": "array",
+                      "title": "Field Scan Symbologies",
+                      "items": {
+                        "$id": "#/properties/tasks/items/properties/fields/items/properties/scan/properties/symbologies/items",
+                        "type": "string",
+                        "title": "Symbology",
+                        "default": "",
+                        "examples": [
+                          "CODE128",
+                          "CODE39",
+                          "QRCODE"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "scan_screen": {
+            "$id": "#/properties/tasks/items/properties/scan_screen",
+            "type": "array",
+            "title": "Scan Screen",
+            "description": "List of fields which are scanned during the scanning process",
+            "default": null,
+            "items": {
+              "$id": "#/properties/tasks/items/properties/scan_screen/items",
+              "type": "object",
+              "title": "Scan Fields",
+              "required": [
+                "key",
+                "label",
+                "input",
+                "regex"
+              ],
+              "properties": {
+                "key": {
+                  "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/key",
+                  "type": "string",
+                  "title": "Field passed after Scan",
+                  "default": "",
+                  "examples": [
+                    "case_number"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "label": {
+                  "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/label",
+                  "type": "string",
+                  "title": "Field Label",
+                  "default": "",
+                  "examples": [
+                    "Case Number"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "input": {
+                  "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/input",
+                  "type": "string",
+                  "title": "Input type",
+                  "default": "",
+                  "examples": [
+                    "st-qr"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "scan": {
+                  "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/scan",
+                  "type": "object",
+                  "title": "Scan",
+                  "default": null,
+                  "required": [
+                    "symbologies",
+                    "mode",
+                    "count"
+                  ],
+                  "properties": {
+                    "symbologies": {
+                      "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/scan/properties/symbologies",
+                      "type": "array",
+                      "title": "List of Allowed Symbologies",
+                      "items": {
+                        "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/scan/properties/symbologies/items",
+                        "type": "string",
+                        "title": "Symbology",
+                        "default": "",
+                        "examples": [
+                          "QR_CODE"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    },
+                    "mode": {
+                      "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/scan/properties/mode",
+                      "type": "string",
+                      "title": "Scan Mode",
+                      "default": "",
+                      "examples": [
+                        "single",
+                        "multiple"
+                      ],
+                      "pattern": "^(.*)$"
+                    },
+                    "count": {
+                      "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/scan/properties/count",
+                      "type": "string",
+                      "title": "Scan Count",
+                      "default": "",
+                      "examples": [
+                        "123"
+                      ],
+                      "pattern": "^(.*)$"
+                    }
+                  }
+                },
+                "regex": {
+                  "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/regex",
+                  "type": "object",
+                  "title": "Regex Schema",
+                  "required": [
+                    "message",
+                    "pattern"
+                  ],
+                  "properties": {
+                    "message": {
+                      "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/regex/properties/message",
+                      "type": "string",
+                      "title": "Regex Error Message",
+                      "default": "",
+                      "examples": [
+                        "Must be a valid Case Number"
+                      ],
+                      "pattern": "^(.*)$"
+                    },
+                    "pattern": {
+                      "$id": "#/properties/tasks/items/properties/scan_screen/items/properties/regex/properties/pattern",
+                      "type": "string",
+                      "title": "Regex Pattern",
+                      "default": "",
+                      "examples": [
+                        "^([0-9A-Z]{24})$"
+                      ],
+                      "pattern": "^(.*)$"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "upload": {
+            "$id": "#/properties/tasks/items/properties/upload",
+            "type": "object",
+            "title": "Upload Screen",
+            "required": [
+              "data_key",
+              "next"
+            ],
+            "properties": {
+              "data_key": {
+                "$id": "#/properties/tasks/items/properties/upload/properties/data_key",
+                "type": "string",
+                "title": "Upload Data Key",
+                "default": "",
+                "examples": [
+                  "extended_id"
+                ],
+                "pattern": "^(.*)$"
+              },
+              "next": {
+                "$id": "#/properties/tasks/items/properties/upload/properties/next",
+                "type": "string",
+                "title": "Next Screen",
+                "default": "",
+                "examples": [
+                  "scan_screen"
+                ],
+                "pattern": "^(.*)$"
+              }
+            }
+          },
+          "result_screen": {
+            "$id": "#/properties/tasks/items/properties/result_screen",
+            "type": "array",
+            "title": "Scan Result Screen",
+            "items": {
+              "$id": "#/properties/tasks/items/properties/result_screen/items",
+              "type": "object",
+              "title": "List of Sections",
+              "required": [
+                "section_label",
+                "fields"
+              ],
+              "properties": {
+                "section_label": {
+                  "$id": "#/properties/tasks/items/properties/result_screen/items/properties/section_label",
+                  "type": "string",
+                  "title": "Section Label",
+                  "default": "",
+                  "examples": [
+                    "Product"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "fields": {
+                  "$id": "#/properties/tasks/items/properties/result_screen/items/properties/fields",
+                  "type": "array",
+                  "title": "List of Fields",
+                  "items": {
+                    "$id": "#/properties/tasks/items/properties/result_screen/items/properties/fields/items",
+                    "type": "object",
+                    "title": "Field",
+                    "required": [
+                      "label",
+                      "value"
+                    ],
+                    "properties": {
+                      "label": {
+                        "$id": "#/properties/tasks/items/properties/result_screen/items/properties/fields/items/properties/label",
+                        "type": "string",
+                        "title": "Field Label",
+                        "default": "",
+                        "examples": [
+                          "Product Name"
+                        ],
+                        "pattern": "^(.*)$"
+                      },
+                      "value": {
+                        "$id": "#/properties/tasks/items/properties/result_screen/items/properties/fields/items/properties/value",
+                        "type": "string",
+                        "title": "Field Value",
+                        "default": "",
+                        "examples": [
+                          "@product.name"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
